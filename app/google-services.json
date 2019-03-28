@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "905221282691",
+    "firebase_url": "https://the-smart-guardian.firebaseio.com",
+    "project_id": "the-smart-guardian",
+    "storage_bucket": "the-smart-guardian.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905221282691:android:903194ddab576042",
+        "android_client_info": {
+          "package_name": "luhar.sohil.thesmartguardian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905221282691-calmltbsrp294m11hbsd2039v86e1j4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC17RIaNyEKbDi24Q3LheFclyOA-PGSmA0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905221282691:android:6dbe5b4dbf603e4a",
+        "android_client_info": {
+          "package_name": "luhar.sohil.thesmartguardian_school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905221282691-calmltbsrp294m11hbsd2039v86e1j4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC17RIaNyEKbDi24Q3LheFclyOA-PGSmA0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
