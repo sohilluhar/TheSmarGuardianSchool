@@ -18,7 +18,7 @@ public class Home extends AppCompatActivity {
 
 
     TextView wlcmUser;
-    Button addParent;
+    Button addParent,addStudent;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference student, message;
@@ -32,6 +32,7 @@ public class Home extends AppCompatActivity {
 
         wlcmUser = (TextView) findViewById(R.id.wlcmUser);
         addParent = (Button) findViewById(R.id.addParent);
+        addStudent = (Button) findViewById(R.id.addStudent);
 
 
         if (Common.haveInternet(this)) {
@@ -44,6 +45,15 @@ public class Home extends AppCompatActivity {
                     Intent intent=new Intent(Home.this,AddParent.class);
                     startActivity(intent);
                     finish();
+                }
+            });
+
+            addStudent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(Home.this,AddStudent.class);
+                    intent.putExtra("parentPhone"," ");
+                    startActivity(intent);
                 }
             });
         }

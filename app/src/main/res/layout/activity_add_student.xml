@@ -38,7 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Add Parent"
+                        android:text="Add Student"
                         android:layout_gravity="center"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
@@ -47,21 +47,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Name"
+                        android:text="Parent Phone number"
                         android:textAllCaps="true"
+
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/etParentName"
+                        android:id="@+id/etstudentParentPhone"
+                        android:inputType="phone"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/et_bg"
                         android:fontFamily="sans-serif-light"
@@ -82,14 +85,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Phone Number"
+                        android:text="Student id"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
                     <EditText
                         android:layout_width="match_parent"
-                        android:id="@+id/etParentPhone"
+                        android:id="@+id/etStudentId"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:inputType="number"
@@ -112,14 +115,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Email"
+                        android:text="Name"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
                     <EditText
                         android:layout_width="match_parent"
-                        android:id="@+id/etParentEmail"
+                        android:id="@+id/etStudentName"
                         android:layout_height="40dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/et_bg"
@@ -127,7 +130,7 @@
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:textColor="@color/white"
-                        android:inputType="textEmailAddress"
+                        android:inputType="text"
                         android:textSize="15sp" />
 
 
@@ -137,32 +140,76 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:text="Password"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:id="@+id/etParentPass"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/et_bg"
-                        android:fontFamily="sans-serif-light"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="Standard"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/etStudentStd"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/et_bg"
+                            android:fontFamily="sans-serif-light"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:textColor="@color/white"
+                            android:inputType="number"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="Division"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/etStudentDivison"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/et_bg"
+                            android:fontFamily="sans-serif-light"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:textColor="@color/white"
+                            android:inputType="text"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -172,10 +219,10 @@
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btnParentRegister"
+                        android:id="@+id/btnStudentRegistration"
                         android:background="@drawable/btn_bg"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Register Parent"
+                        android:text="Register Student"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="15sp"

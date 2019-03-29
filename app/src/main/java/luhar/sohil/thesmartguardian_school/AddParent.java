@@ -1,5 +1,6 @@
 package luhar.sohil.thesmartguardian_school;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,6 +80,10 @@ public class AddParent extends AppCompatActivity {
 
                         Toast.makeText(AddParent.this, "Parent Added ", Toast.LENGTH_SHORT).show();
                         //finish();
+                        Intent intent=new Intent(AddParent.this,AddStudent.class);
+                        intent.putExtra("parentPhone",phone);
+                        startActivity(intent);
+                        finish();
                     }
                 }
 
