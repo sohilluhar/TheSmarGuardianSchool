@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import Model.Admin;
+import Model.Parent;
 
 public class Common {
     public static boolean haveInternet(Context ctx) {
@@ -16,4 +17,5 @@ public class Common {
     }
 
     public static Admin currentAdmin;
+    public static Parent currentParent;
 }
