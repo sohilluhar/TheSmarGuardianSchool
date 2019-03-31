@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="luhar.sohil.thesmartguardian_school">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +22,8 @@
         </activity>
         <activity android:name=".Home" />
         <activity android:name=".AddParent" />
-        <activity android:name=".AddStudent"></activity>
+        <activity android:name=".AddStudent" />
+        <activity android:name=".AddStudentPhoto"></activity>
     </application>
 
 </manifest>

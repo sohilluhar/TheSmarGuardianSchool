@@ -74,7 +74,6 @@ public class AddParent extends AppCompatActivity {
                     }else {
 
                         Parent user=new Parent(name,mail,pass,phone);
-
                         dbParent.child(phone).setValue(user);
                         Common.currentParent=user;
 

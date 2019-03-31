@@ -51,6 +51,19 @@
         android:layout_marginTop="20dp"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addStudentPhoto"
+        android:background="@drawable/btn_bg"
+        android:fontFamily="sans-serif-medium"
+        android:text="Add Student Photo"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginTop="20dp"
+        />
+
 </LinearLayout>
 
 </LinearLayout>

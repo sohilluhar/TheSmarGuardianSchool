@@ -17,12 +17,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import Common.Common;
+import Model.Message;
 import Model.Parent;
 import Model.Student;
 
 public class AddStudent extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference dbParent,dbStudent;
+    DatabaseReference dbParent,dbStudent,dbMessage;
 
     EditText stdname,stdid,stddiv,stdstandard,stdParentPhone;
     Button addstd;
@@ -36,6 +37,7 @@ public class AddStudent extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         dbParent = firebaseDatabase.getReference("Parent");
         dbStudent = firebaseDatabase.getReference("Student");
+        dbMessage = firebaseDatabase.getReference("Message");
 
 
 
@@ -65,6 +67,8 @@ public class AddStudent extends AppCompatActivity {
         String phone1=stdParentPhone.getText().toString();
         final String phone=phone1.replaceAll("\\s+","");
         Log.d("Parent Phone",phone);
+
+
         dbParent.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -73,7 +77,6 @@ public class AddStudent extends AppCompatActivity {
                     addStudenttodb();
                 }else {
                     Toast.makeText(AddStudent.this, "Parent not exist", Toast.LENGTH_SHORT).show();
-
                 }
             }
 
@@ -98,6 +101,7 @@ public class AddStudent extends AppCompatActivity {
             Toast.makeText(AddStudent.this, "Please fill all details ", Toast.LENGTH_SHORT).show();
         }
         else{
+
             dbStudent.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -114,9 +118,10 @@ public class AddStudent extends AppCompatActivity {
 
                         Toast.makeText(AddStudent.this, "Student Added ", Toast.LENGTH_SHORT).show();
                         //finish();
-                        //Intent intent=new Intent(AddParent.this,AddStudent.class);
-                        //intent.putExtra("parentPhone",phone);
-                        //startActivity(intent);
+                        addmessageStudent(id);
+                        Intent intent=new Intent(AddStudent.this,AddStudentPhoto.class);
+                        intent.putExtra("studentId",id);
+                        startActivity(intent);
                         finish();
 
 
@@ -131,5 +136,23 @@ public class AddStudent extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void addmessageStudent(final String id) {
+
+        dbMessage.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Message msg=new Message("Date","message","photo");
+                dbMessage.child(id).setValue(msg);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }
