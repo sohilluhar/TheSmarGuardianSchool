@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.internal.Storage;
@@ -40,13 +41,16 @@ import Model.Message;
 public class AddStudentPhoto extends AppCompatActivity {
 
     EditText stdId;
-    Button clickPhoto,uploadPhoto,choosePhoto;
+    Button uploadPhoto,choosePhoto;//clickPhoto,
     ImageView imageView;
+    TextView totalimg;
 
 
     byte data1[];
     private Uri filePath;
 
+    private Vector files;
+    private  Vector datasetImg;
     private final int PICK_IMAGE_REQUEST = 71;
     public static  final int CAMERA_REQ_CODE= 1;
 
@@ -66,10 +70,15 @@ public class AddStudentPhoto extends AppCompatActivity {
         setContentView(R.layout.activity_add_student_photo);
 
         stdId=(EditText)findViewById(R.id.etstudentPhotoId);
-        clickPhoto=(Button) findViewById(R.id.clickphoto);
+       // clickPhoto=(Button) findViewById(R.id.clickphoto);
         uploadPhoto=(Button) findViewById(R.id.uploadStudentPhoto);
         choosePhoto=(Button) findViewById(R.id.choosePhoto);
-        imageView=(ImageView) findViewById(R.id.imgstdPhoto);
+      //  imageView=(ImageView) findViewById(R.id.imgstdPhoto);
+        totalimg=(TextView) findViewById(R.id.totalimg);
+
+
+        files=new Vector();
+        datasetImg=new Vector();
 
         progressDialog=new ProgressDialog(this);
 
@@ -85,7 +94,7 @@ public class AddStudentPhoto extends AppCompatActivity {
         String id=intent.getStringExtra("studentId");
         stdId.setText(id);
 
-        clickPhoto.setOnClickListener(new View.OnClickListener() {
+       /* clickPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //click photo from camera
@@ -93,7 +102,7 @@ public class AddStudentPhoto extends AppCompatActivity {
                 Intent intent1=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent1,CAMERA_REQ_CODE);
             }
-        });
+        });*/
 
 
         choosePhoto.setOnClickListener(new View.OnClickListener() {
@@ -127,46 +136,66 @@ public class AddStudentPhoto extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(finalid).exists() && !finalid.isEmpty()){
                     //uploadtodatabase(finalid);
-                    if(filePath != null)
+
+                    if(!files.isEmpty())
                     {
 
                         final ProgressDialog progressDialog = new ProgressDialog(AddStudentPhoto.this);
                         progressDialog.setTitle("Uploading...");
                         progressDialog.show();
 
-                        final StorageReference ref = storageRef.child(UUID.randomUUID().toString());
-                        ref.putFile(filePath)
-                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(AddStudentPhoto.this, "Uploaded", Toast.LENGTH_SHORT).show();
 
-                                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                Uri downloadUrl = uri;
-                                                Log.d("STRING  url in main",downloadUrl.toString());
-                                                addDataSet(downloadUrl,finalid);
+                        for(int i=0;i<files.size();i++) {
+
+                            filePath= (Uri) files.get(i);
+                            Log.d("File path",filePath.toString());
+                            final StorageReference ref = storageRef.child(UUID.randomUUID().toString());
+                            final int finalI = i;
+                            ref.putFile(filePath)
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                            //Toast.makeText(AddStudentPhoto.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+                                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    Uri downloadUrl = uri;
+                                                    Log.d("STRING  url in main", downloadUrl.toString());
+                                                    datasetImg.add(downloadUrl.toString());
+                                                    addDataSet(finalI,downloadUrl.toString(),finalid);
+                                                }
+                                            });
+
+                                            progressDialog.setMessage((finalI+1)+" uploaded");
+
+                                            if(finalI==files.size()-1){
+                                                progressDialog.dismiss();
+                                                finish();
                                             }
-                                        });
 
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(AddStudentPhoto.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(AddStudentPhoto.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                        //    progressDialog.setMessage((finalI+1)+"  uploading...");
+                                        }
+                                    });
 
-                                    }
-                                });
+                        }
+
+
                     }
+                    /*
                     if(data1!=null){
 
                         final ProgressDialog progressDialog = new ProgressDialog(AddStudentPhoto.this);
@@ -185,7 +214,8 @@ public class AddStudentPhoto extends AppCompatActivity {
                                             public void onSuccess(Uri uri) {
                                                 Uri downloadUrl = uri;
                                                 Log.d("STRING  url in main",downloadUrl.toString());
-                                                addDataSet(downloadUrl,finalid);
+                                                datasetImg.add(downloadUrl.toString());
+                                                addDataSet(0,downloadUrl.toString(),finalid);
                                             }
                                         });
 
@@ -205,7 +235,7 @@ public class AddStudentPhoto extends AppCompatActivity {
                                     }
                                 });
 
-                    }
+                    }*/
 
                 }
                 else {
@@ -225,19 +255,21 @@ public class AddStudentPhoto extends AppCompatActivity {
     }
 
 
-    private void addDataSet(final Uri downloadUrl, final String studentid) {
+    private void addDataSet(final int k,final String url,final String studentid) {
 
         dbDataSet.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String strurl=downloadUrl.toString();
+                /*String strurl=downloadUrl.toString();
                 Log.d("STRING URL",strurl);
                 Vector v=new Vector();
                 v.add(strurl);
                 v.add("Test");
-                DataSet data=new DataSet(v);
-                dbDataSet.child(studentid).setValue(data);
-                finish();
+
+                */
+
+                dbDataSet.child(studentid).child("imgurl").child(k+"").setValue(url);
+
             }
 
             @Override
@@ -251,6 +283,7 @@ public class AddStudentPhoto extends AppCompatActivity {
 
         Intent intent = new Intent();
         intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
@@ -259,6 +292,28 @@ public class AddStudentPhoto extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            Uri imageUri;
+            if (data.getClipData() != null) {
+                int count = data.getClipData().getItemCount();//evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+
+                totalimg.setText("Total  "+count+"  images selected");
+                for (int i = 0; i < count; i++) {
+                    imageUri = data.getClipData().getItemAt(i).getUri();
+                    files.add(imageUri);
+                    Log.d("IMAGE URL", imageUri.toString());
+                }
+                //do something with the image (save it to some directory or whatever you need to do with it here)
+            } else if (data.getData() != null) {
+                Uri imagePath = data.getData();
+                files.add(imagePath);
+                //do something with the image (save it to some directory or whatever you need to do with it here)
+            }
+        }else {
+            Toast.makeText(this, "NO photo selected", Toast.LENGTH_SHORT).show();
+        }
+/*
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null )
         {
@@ -270,10 +325,10 @@ public class AddStudentPhoto extends AppCompatActivity {
             catch (IOException e)
             {
                 e.printStackTrace();
-            }
-        }
+            }*/
 
 
+/*
         if (requestCode == CAMERA_REQ_CODE && resultCode == RESULT_OK
                 ){
 
@@ -289,7 +344,7 @@ public class AddStudentPhoto extends AppCompatActivity {
             {
                 e.printStackTrace();
             }
-        }
+        }*/
 
     }
 

@@ -30,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -58,7 +59,7 @@
 
         </LinearLayout>
 
-        <Button
+        <!--Button
             android:id="@+id/clickphoto"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -69,7 +70,7 @@
             android:text="Click Photo"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp" /-->
 
         <Button
             android:id="@+id/choosePhoto"
@@ -83,13 +84,24 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="15sp" />
-        <ImageView
+        <!--ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:id="@+id/imgstdPhoto"
             android:layout_marginTop="20dp"
             android:layout_weight="5"
-             />
+             /-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:id="@+id/totalimg"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            />
 
         <Button
             android:id="@+id/uploadStudentPhoto"
