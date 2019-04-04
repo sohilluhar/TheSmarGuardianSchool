@@ -172,6 +172,7 @@ public class AddStudentPhoto extends AppCompatActivity {
 
                                             if(finalI==files.size()-1){
                                                 progressDialog.dismiss();
+                                                Toast.makeText(AddStudentPhoto.this, "All "+files.size()+" photos uploaded.", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
 
@@ -307,6 +308,7 @@ public class AddStudentPhoto extends AppCompatActivity {
                 //do something with the image (save it to some directory or whatever you need to do with it here)
             } else if (data.getData() != null) {
                 Uri imagePath = data.getData();
+                totalimg.setText("Total 1 images selected");
                 files.add(imagePath);
                 //do something with the image (save it to some directory or whatever you need to do with it here)
             }
